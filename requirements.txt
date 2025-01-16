@@ -3,3 +3,4 @@ APScheduler
 pandas
 requests
 gunicorn
+pandas_ta
