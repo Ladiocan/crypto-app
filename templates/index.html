@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Predictor</title>
+    <script>
+        async function updateTable() {
+            try {
+                const response = await fetch('/update');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.results) {
+                    let tableHTML = '<table border="1"><tr><th>Symbol</th><th>Current Price</th><th>Predicted Price</th><th>RSI</th><th>SMA</th><th>MACD</th><th>ATR</th><th>OBV</th><th>EMA</th><th>Recommendation</th></tr>';
+                    data.results.forEach(row => {
+                        let rowClass = "";
+                        if (row.Recommendation === "Cumpărare") {
+                            rowClass = "buy";
+                        } else if (row.Recommendation === "Vânzare") {
+                            rowClass = "sell";
+                        }
+                        tableHTML += `<tr class="${rowClass}">
+                            <td>${row.symbol}</td>
+                            <td>${row.current_price.toFixed(2)}</td>
+                            <td>${row.predicted_price.toFixed(2)}</td>
+                            <td>${row.RSI.toFixed(2)}</td>
+                            <td>${row.SMA.toFixed(2)}</td>
+                            <td>${row.MACD.toFixed(2)}</td>
+                            <td>${row.ATR.toFixed(2)}</td>
+                            <td>${row.OBV.toFixed(2)}</td>
+                            <td>${row.EMA.toFixed(2)}</td>
+                            <td>${row.Recommendation}</td>
+                        </tr>`;
+                    });
+                    tableHTML += '</table>';
+                    document.getElementById('tabel').innerHTML = tableHTML;
+                } else if (data.error) {
+                    document.getElementById('tabel').innerText = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                document.getElementById('tabel').innerText = `Error: ${error.message}`;
+            }
+        }
+
+        function startAutoUpdate() {
+            updateTable(); // Actualizează imediat
+            setTimeout(startAutoUpdate, 60000); // Reia actualizarea după 1 minut
+        }
+
+        window.onload = startAutoUpdate;
+    </script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr.buy {
+            background-color: #d4edda; /* Verde deschis */
+        }
+        tr.sell {
+            background-color: #f8d7da; /* Roșu deschis */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predicții Crypto USDC</h1>
+    <div id="tabel">Se încarcă...</div>
+</body>
+</html>
