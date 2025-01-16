@@ -5,3 +5,4 @@ requests
 gunicorn
 pandas_ta
 numpy==1.23.5
+scikit-learn
