@@ -1,19 +1,25 @@
-import './globals.css'
-import type { Metadata } from 'next'
+"use client";
 
-export const metadata: Metadata = {
-  title: 'Crypto AI App',
-  description: 'Predicții AI pentru criptomonede',
-}
+import "./globals.css";
+import { ReactNode } from "react";
+import { Navbar } from "@/components/Navbar";
+import { WagmiProvider } from "wagmi";
+import { wagmiConfig } from "@/wagmiConfig";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const queryClient = new QueryClient();
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white">{children}</body>
+      <body className="bg-gradient-to-tr from-blue-400 via-purple-500 to-pink-500 animate-gradient min-h-screen text-white">
+        <WagmiProvider config={wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <Navbar />
+            {children}
+          </QueryClientProvider>
+        </WagmiProvider>
+      </body>
     </html>
-  )
+  );
 }
