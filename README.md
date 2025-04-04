@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crypto Dashboard
 
-## Getting Started
+A modern cryptocurrency dashboard built with Next.js and Flask, featuring real-time price tracking, AI predictions, and wallet integration.
 
-First, run the development server:
+## Features
 
+- Real-time cryptocurrency price tracking
+- Price trend indicators
+- AI-powered price predictions
+- 24-hour volume tracking
+- Wallet integration via WalletConnect
+- Beautiful and responsive UI
+
+## Tech Stack
+
+### Frontend
+- Next.js
+- React
+- Tailwind CSS
+- React Icons
+
+### Backend
+- Flask
+- Pandas
+- Binance API
+- Scikit-learn for predictions
+
+## Setup
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd crypto-app-next
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install frontend dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Install backend dependencies:
+```bash
+cd backend
+pip install -r requirements.txt
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Environment Setup:
+- Copy `.env.example` to `.env`
+- Fill in your API keys in `.env`:
+  - `BINANCE_API_KEY` - Your Binance API key
+  - `BINANCE_API_SECRET` - Your Binance API secret
+  - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` - Your WalletConnect project ID
 
-## Learn More
+**Important**: Never commit the `.env` file or share your API keys. The `.env` file is included in `.gitignore` for security.
 
-To learn more about Next.js, take a look at the following resources:
+## Running the Application
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Using Docker (Recommended)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Start the application:
+```bash
+docker-compose up --build
+```
 
-## Deploy on Vercel
+2. Access the application:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5001
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Manual Start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Start the backend:
+```bash
+cd backend
+python main.py
+```
+
+2. Start the frontend:
+```bash
+npm run dev
+```
+
+## Development
+
+- Frontend code is in `src/` directory
+- Backend code is in `backend/` directory
+- Historical data is stored in `crypto_data/` directory
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## License
+
+MIT
