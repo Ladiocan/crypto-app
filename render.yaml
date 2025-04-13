@@ -3,8 +3,8 @@ services:
     name: crypto-backend
     env: python
     plan: free
-    buildCommand: ""
-    startCommand: "python main.py"
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && python main.py"
     envVars:
       - key: FLASK_ENV
         value: production
